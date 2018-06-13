@@ -1,7 +1,5 @@
 <?php
 use FcPhp\Di\Interfaces\IDi;
-use FcPhp\Di\Interfaces\IContainer;
-use FcPhp\Di\Facades\DiFacade;
 use FcPhp\Provider\Provider;
 use FcPhp\Provider\Interfaces\IProvider;
 use FcPhp\Provider\Interfaces\IProviderClient;
@@ -10,16 +8,16 @@ use FcPhp\Di\Di;
 use FcPhp\Di\Factories\ContainerFactory;
 use FcPhp\Di\Factories\InstanceFactory;
 
-require_once('Mock.php');
+require_once(__DIR__ . '/../Integration/Mock.php');
 
-class ProviderTest extends Mock
+class ProviderUnitTest extends Mock
 {
 	private $di;
 	private $provider;
 
 	public function setUp()
 	{
-		$this->di = new Di(new ContainerFactory(), new InstanceFactory(), false);
+		$this->di = $this->createMock('\FcPhp\Di\Interfaces\IDi');
 		$this->provider = new Provider($this->di);
 	}
 
@@ -28,16 +26,10 @@ class ProviderTest extends Mock
 		$this->assertTrue($this->provider instanceof IProvider);
 	}
 
-	public function addProviders()
+	public function testProviderClass()
 	{
-		$this->provider->addProviders(['LocalProvider']);
-	}
-
-	public function testMake()
-	{
-		$this->provider->addProviders(['LocalProvider']);
+		$this->assertTrue($this->provider->addProviders(['\LocalProvider_providertest']) instanceof IProvider);
 		$this->provider->make();
-		$this->assertTrue($this->di->get('TestClass') instanceof IContainer);
 	}
 
 	/**
@@ -45,12 +37,12 @@ class ProviderTest extends Mock
 	 */
 	public function testMakeNonExtends()
 	{
-		$this->provider->addProviders(['LocalProviderNonImplement']);
+		$this->provider->addProviders(['LocalProviderNonImplement_providertest']);
 		$this->provider->make();
 	}
 }
 
-class LocalProvider implements IProviderClient
+class LocalProvider_providertest implements IProviderClient
 {
 	public function getProviders(IDi $di) :IDi
 	{
@@ -59,7 +51,7 @@ class LocalProvider implements IProviderClient
 	}
 } 
 
-class LocalProviderNonImplement
+class LocalProviderNonImplement_providertest
 {
 	public function getProviders(IDi $di) :IDi
 	{
