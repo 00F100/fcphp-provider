@@ -2,7 +2,7 @@
 
 Package do manage providers. This package use [FcPhp Di](https://github.com/00f100/fcphp-di) to inject dependency.
 
-[![Build Status](https://travis-ci.org/00F100/fcphp-provider.svg?branch=master)](https://travis-ci.org/00F100/fcphp-provider) [![codecov](https://codecov.io/gh/00F100/fcphp-provider/branch/master/graph/badge.svg)](https://codecov.io/gh/00F100/fcphp-provider)
+[![Total Downloads](https://poser.pugx.org/00F100/fcphp-provider/downloads)](https://packagist.org/packages/00F100/fcphp-provider) [![Build Status](https://travis-ci.org/00F100/fcphp-provider.svg?branch=master)](https://travis-ci.org/00F100/fcphp-provider) [![codecov](https://codecov.io/gh/00F100/fcphp-provider/branch/master/graph/badge.svg)](https://codecov.io/gh/00F100/fcphp-provider)
 
 ## How to install
 
