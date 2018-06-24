@@ -2,15 +2,11 @@
 use FcPhp\Di\Interfaces\IDi;
 use FcPhp\Di\Interfaces\IContainer;
 use FcPhp\Di\Facades\DiFacade;
-use FcPhp\Provider\Provider;
+// use FcPhp\Provider\Provider;
 use FcPhp\Provider\Interfaces\IProvider;
 use FcPhp\Provider\Interfaces\IProviderClient;
 
-use FcPhp\Di\Di;
-use FcPhp\Di\Factories\ContainerFactory;
-use FcPhp\Di\Factories\InstanceFactory;
-use FcPhp\Autoload\Autoload;
-use FcPhp\Cache\Facades\CacheFacade;
+use FcPhp\Provider\Facades\ProviderFacade;
 
 require_once('Mock.php');
 
@@ -21,8 +17,8 @@ class ProviderTest extends Mock
 
 	public function setUp()
 	{
+		$this->provider = ProviderFacade::getInstance('tests/*/*/config', 'tests/var/logs');
 		$this->di = DiFacade::getInstance();
-		$this->provider = new Provider($this->di, new Autoload(), CacheFacade::getInstance('tests/var/logs'), 'tests/*/*/config');
 	}
 
 	public function testInstance()
@@ -56,7 +52,7 @@ class LocalProvider implements IProviderClient
 {
 	public function getProviders(IDi $di) :IDi
 	{
-		$di->set('TestClass', '\TestClass');
+		$di->set('TestClass', '\LocalProviderNonImplement');
 		return $di;
 	}
 } 

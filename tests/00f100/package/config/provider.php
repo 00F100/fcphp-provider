@@ -1,5 +1,5 @@
 <?php
 
 return [
-	\StdClass::class
+	\LocalProvider::class
 ];

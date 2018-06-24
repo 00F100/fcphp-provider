@@ -53,12 +53,14 @@ namespace Some\Example
 ```php
 <?php
 
-use FcPhp\Di\Di;
-use FcPhp\Di\Factories\ContainerFactory;
-use FcPhp\Di\Factories\InstanceFactory;
+use FcPhp\Di\Facades\DiFacade;
+use FcPhp\Provider\Facades\ProviderFacade;
 
-$di = new Di(new ContainerFactory(), new InstanceFactory(), false);
-$provider = new Provider($di);
+$pathLogs = 'tests/var/logs';
+$pathToAutoload = 'tests/*/*/config';
+
+$provider = ProviderFacade::getInstance($pathToAutoload, $pathLogs);
+$di = DiFacade::getInstance();
 
 // Add new provider to process
 $provider->addProviders(['Some\Example\ProviderClientExample']);
