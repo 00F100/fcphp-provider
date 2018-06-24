@@ -9,6 +9,8 @@ use FcPhp\Provider\Interfaces\IProviderClient;
 use FcPhp\Di\Di;
 use FcPhp\Di\Factories\ContainerFactory;
 use FcPhp\Di\Factories\InstanceFactory;
+use FcPhp\Autoload\Autoload;
+use FcPhp\Cache\Facades\CacheFacade;
 
 require_once('Mock.php');
 
@@ -19,8 +21,8 @@ class ProviderTest extends Mock
 
 	public function setUp()
 	{
-		$this->di = new Di(new ContainerFactory(), new InstanceFactory(), false);
-		$this->provider = new Provider($this->di);
+		$this->di = DiFacade::getInstance();
+		$this->provider = new Provider($this->di, new Autoload(), CacheFacade::getInstance('tests/var/logs'), 'tests/*/*/config');
 	}
 
 	public function testInstance()

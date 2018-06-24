@@ -18,7 +18,10 @@ class ProviderUnitTest extends Mock
 	public function setUp()
 	{
 		$this->di = $this->createMock('\FcPhp\Di\Interfaces\IDi');
-		$this->provider = new Provider($this->di);
+		$this->autoload = $this->createMock('\FcPhp\Autoload\Interfaces\IAutoload');
+		$this->cache = $this->createMock('\FcPhp\Cache\Interfaces\ICache');
+
+		$this->provider = new Provider($this->di, $this->autoload, $this->cache, 'tests/*/*/config');
 	}
 
 	public function testInstance()

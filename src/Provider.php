@@ -8,12 +8,28 @@ namespace FcPhp\Provider
 	use FcPhp\Provider\Interfaces\IProviderClient;
 	use FcPhp\Provider\Exceptions\ProviderClassError;
 
+	use FcPhp\Cache\Interfaces\ICache;
+	use FcPhp\Autoload\Interfaces\IAutoload;
+
 	class Provider implements IProvider
 	{
+		const TTL_PROVIDER = 84000;
+
+		private $key;
 		/**
-		 * @var FcPhp\Di\Interfaces\IDi $di
+		 * @var FcPhp\Di\Interfaces\IDi
 		 */
 		private $di;
+
+		/**
+		 * @var FcPhp\Cache\Interfaces\ICache
+		 */
+		private $cache;
+
+		/**
+		 * @var FcPhp\Autoload\Interfaces\IAutoload
+		 */
+		private $autoload;
 
 		/**
 		 * @var array $providers
@@ -25,9 +41,19 @@ namespace FcPhp\Provider
 		 *
 		 * @param FcPhp\Di\Interfaces\IDi $di Di instance
 		 */
-		public function __construct(IDi $di)
+		public function __construct(IDi $di, IAutoload $autoload, ICache $cache, string $vendorPath, bool $noCache = false)
 		{
+			$this->key = md5('providers');
 			$this->di = $di;
+			$this->cache = $cache;
+			$this->autoload = $autoload;
+			if(empty($this->cache->get($this->key))) {
+				$this->autoload->path($vendorPath, ['provider'], ['php']);
+				$this->providers = array_merge($this->providers, $this->autoload->get('provider'));
+				if(!$noCache) {
+					$this->cache->set($this->key, $this->providers, self::TTL_PROVIDER);
+				}
+			}
 		}
 
 		/**
@@ -59,7 +85,7 @@ namespace FcPhp\Provider
 					$instance->getProviders($this->di);
 					unset($instance);
 					unset($class);
-					// unset($this->providers[$key]);
+					unset($this->providers[$key]);
 				}
 			}
 		}
