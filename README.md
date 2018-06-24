@@ -56,10 +56,10 @@ namespace Some\Example
 use FcPhp\Di\Facades\DiFacade;
 use FcPhp\Provider\Facades\ProviderFacade;
 
-$pathLogs = 'tests/var/logs';
+$PathCache = 'tests/var/cache';
 $pathToAutoload = 'tests/*/*/config';
 
-$provider = ProviderFacade::getInstance($pathToAutoload, $pathLogs);
+$provider = ProviderFacade::getInstance($pathToAutoload, $PathCache);
 $di = DiFacade::getInstance();
 
 // Add new provider to process

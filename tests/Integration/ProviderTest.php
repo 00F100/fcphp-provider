@@ -17,7 +17,7 @@ class ProviderTest extends Mock
 
 	public function setUp()
 	{
-		$this->provider = ProviderFacade::getInstance('tests/*/*/config', 'tests/var/logs');
+		$this->provider = ProviderFacade::getInstance('tests/*/*/config', 'tests/var/cache');
 		$this->di = DiFacade::getInstance();
 	}
 

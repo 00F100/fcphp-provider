@@ -12,12 +12,12 @@ namespace FcPhp\Provider\Facades
 	{
 		private static $instance;
 
-		public static function getInstance(string $exprPathAutoload, string $pathLogs = null)
+		public static function getInstance(string $exprPathAutoload, string $PathCache = null)
 		{
 			if(!self::$instance instanceof IProvider) {
 				$di = DiFacade::getInstance();
 				$autoload = new Autoload();
-				$cache = CacheFacade::getInstance($pathLogs);
+				$cache = CacheFacade::getInstance($PathCache);
 				self::$instance = new Provider($di, $autoload, $cache, $exprPathAutoload);
 			}
 			return self::$instance;
