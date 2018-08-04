@@ -11,22 +11,22 @@ require_once('Mock.php');
 
 class ProviderClientTest extends Mock
 {
-	private $di;
-	private $provider;
+    private $di;
+    private $provider;
 
-	public function setUp()
-	{
-		$this->di = new Di(new ContainerFactory(), new InstanceFactory(), false);
-		$this->provider = new ProviderClient($this->di);
-	}
+    public function setUp()
+    {
+        $this->di = new Di(new ContainerFactory(), new InstanceFactory(), false);
+        $this->provider = new ProviderClient($this->di);
+    }
 
-	public function testInstance()
-	{
-		$this->assertTrue($this->provider instanceof IProviderClient);
-	}
+    public function testInstance()
+    {
+        $this->assertTrue($this->provider instanceof IProviderClient);
+    }
 
-	public function testProviderClient()
-	{
-		$this->assertTrue($this->provider->getProviders($this->di) instanceof IDi);
-	}
+    public function testProviderClient()
+    {
+        $this->assertTrue($this->provider->getProviders($this->di) instanceof IDi);
+    }
 }

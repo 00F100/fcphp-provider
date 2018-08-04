@@ -2,10 +2,10 @@
 
 namespace FcPhp\Provider\Exceptions
 {
-	use Exception;
-	
-	class ProviderClassError extends Exception
-	{
+    use Exception;
+    
+    class ProviderClassError extends Exception
+    {
 
-	}
+    }
 }

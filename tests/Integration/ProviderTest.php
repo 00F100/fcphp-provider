@@ -12,56 +12,56 @@ require_once('Mock.php');
 
 class ProviderTest extends Mock
 {
-	private $di;
-	private $provider;
+    private $di;
+    private $provider;
 
-	public function setUp()
-	{
-		$this->provider = ProviderFacade::getInstance('tests/*/*/config', 'tests/var/cache');
-		$this->di = DiFacade::getInstance();
-	}
+    public function setUp()
+    {
+        $this->provider = ProviderFacade::getInstance('tests/*/*/config', 'tests/var/cache');
+        $this->di = DiFacade::getInstance();
+    }
 
-	public function testInstance()
-	{
-		$this->assertTrue($this->provider instanceof IProvider);
-	}
+    public function testInstance()
+    {
+        $this->assertTrue($this->provider instanceof IProvider);
+    }
 
-	public function addProviders()
-	{
-		$this->provider->addProviders(['LocalProvider']);
-	}
+    public function addProviders()
+    {
+        $this->provider->addProviders(['LocalProvider']);
+    }
 
-	public function testMake()
-	{
-		$this->provider->addProviders(['LocalProvider']);
-		$this->provider->make();
-		$this->assertTrue($this->di->get('TestClass') instanceof IContainer);
-	}
+    public function testMake()
+    {
+        $this->provider->addProviders(['LocalProvider']);
+        $this->provider->make();
+        $this->assertTrue($this->di->get('TestClass') instanceof IContainer);
+    }
 
-	/**
-	 * @expectedException FcPhp\Provider\Exceptions\ProviderClassError
-	 */
-	public function testMakeNonExtends()
-	{
-		$this->provider->addProviders(['LocalProviderNonImplement']);
-		$this->provider->make();
-	}
+    /**
+     * @expectedException FcPhp\Provider\Exceptions\ProviderClassError
+     */
+    public function testMakeNonExtends()
+    {
+        $this->provider->addProviders(['LocalProviderNonImplement']);
+        $this->provider->make();
+    }
 }
 
 class LocalProvider implements IProviderClient
 {
-	public function getProviders(IDi $di) :IDi
-	{
-		$di->set('TestClass', '\LocalProviderNonImplement');
-		return $di;
-	}
+    public function getProviders(IDi $di) :IDi
+    {
+        $di->set('TestClass', '\LocalProviderNonImplement');
+        return $di;
+    }
 } 
 
 class LocalProviderNonImplement
 {
-	public function getProviders(IDi $di) :IDi
-	{
-		$di->set('TestClass', '\TestClass');
-		return $di;
-	}
+    public function getProviders(IDi $di) :IDi
+    {
+        $di->set('TestClass', '\TestClass');
+        return $di;
+    }
 } 

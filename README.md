@@ -14,9 +14,9 @@ $ composer require 00f100/fcphp-provider
 or composer.json
 ```json
 {
-	"require": {
-		"00f100/fcphp-provider": "*"
-	}
+    "require": {
+        "00f100/fcphp-provider": "*"
+    }
 }
 ```
 
@@ -28,24 +28,24 @@ or composer.json
 
 namespace Some\Example
 {
-	use FcPhp\Di\Interfaces\IDi;
-	use FcPhp\Provider\Interfaces\IProviderClient;
+    use FcPhp\Di\Interfaces\IDi;
+    use FcPhp\Provider\Interfaces\IProviderClient;
 
-	class ProviderClientExample implements IProviderClient
-	{
-		/**
-		 * Method to configure Di in providers
-		 *
-		 * @param FcPhp\Di\Interfaces\IDi $di Di Instance
-		 * @return void
-		 */
-		public function getProviders(IDi $di) :IDi
-		{
-			$di->set('Class', '\Class', [], ['SetConfiguration', => ['item1', 'item2', 'item3']]);
-			$di->set('Class2', '\Class', ['instance' => $this->get('Class')]);
-			return $di;
-		}
-	}
+    class ProviderClientExample implements IProviderClient
+    {
+        /**
+         * Method to configure Di in providers
+         *
+         * @param FcPhp\Di\Interfaces\IDi $di Di Instance
+         * @return void
+         */
+        public function getProviders(IDi $di) :IDi
+        {
+            $di->set('Class', '\Class', [], ['SetConfiguration', => ['item1', 'item2', 'item3']]);
+            $di->set('Class2', '\Class', ['instance' => $this->get('Class')]);
+            return $di;
+        }
+    }
 }
 ```
 
